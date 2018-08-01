@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Excersize2.Views.FirstWindowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             Background="LightGreen">
+    <cal:Message.Attach>
+        [Event SizeChanged] = [WindowSizeChanged($eventArgs)];
+    </cal:Message.Attach>
+
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="Multiply" HorizontalContentAlignment="Center" FontSize="50" Grid.Row="0"></Label>
+            <Button x:Name="OpenSecondWindow" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Content="פתח חלון חדש"  Grid.Row="1">
+            </Button>
+        </Grid>
+    </StackPanel>
+</UserControl>
