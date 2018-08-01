@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Dynamic;
 using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
@@ -8,33 +9,54 @@ using Excersize2.Views;
 namespace Excersize2.ViewModels
 {
     [Export(typeof(FirstWindowViewModel))]
-    public class FirstWindowViewModel : PropertyChangedBase, IHandle<Size>
+    public class FirstWindowViewModel : BaseWindowViewModel, IHandle<Size>
     {
-        private IWindowManager _windowManager;
-        private IEventAggregator _eventAggregator;
-        private double _multiply;
+        private double _height;
+        private double _width;
+        private SecondWindowViewModel _secondWindow;
 
-        public double Multiply
-    {
-            get => _multiply;
+        public double Height
+        {
+            get => _height;
             set
             {
-                _multiply = value;
-                NotifyOfPropertyChange(() => Multiply);
+                _height = value;
+                NotifyOfPropertyChange(() => Height);
+                if (_secondWindow != null)
+                {
+                    NotifyOfPropertyChange(() => _secondWindow.Height);
+                }
+            }
+        }
+
+        public double Width
+        {
+            get => _width;
+            set
+            {
+                _width = value;
+                NotifyOfPropertyChange(() => Width);
+                if (_secondWindow != null)
+                {
+                    NotifyOfPropertyChange(() => _secondWindow.Width);
+                }
             }
         }
 
         [ImportingConstructor]
-        public FirstWindowViewModel(IWindowManager windowManager, IEventAggregator eventAggregator)
+        public FirstWindowViewModel(IWindowManager windowManager, IEventAggregator eventAggregator) : base(windowManager, eventAggregator)
         {
-            _windowManager = windowManager;
-            _eventAggregator = eventAggregator;
-            _eventAggregator.Subscribe(this);
+            Height = 800;
+            Width = 800;
         }
 
         public void OpenSecondWindow()
         {
-            _windowManager.ShowDialog(new SecondWindowViewModel(_windowManager));
+            dynamic settings = new ExpandoObject();
+            settings.Height = Height;
+            settings.Width = Width;
+            _secondWindow = new SecondWindowViewModel(_windowManager, _eventAggregator, Height, Width);
+            _windowManager.ShowDialog(_secondWindow, null, settings);
         }
 
         public void WindowSizeChanged(SizeChangedEventArgs args)
@@ -43,8 +65,9 @@ namespace Excersize2.ViewModels
         }
 
         public void Handle(Size newSize)
-        {
-            Multiply = newSize.Height * newSize.Width;
+        { 
+            Height = newSize.Height;
+            Width = newSize.Width;
         }
-}
+    }
 }
