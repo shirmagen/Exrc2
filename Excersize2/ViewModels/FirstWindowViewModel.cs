@@ -1,27 +1,22 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Dynamic;
-using System.Linq;
-using System.Windows;
 using Caliburn.Micro;
-using Excersize2.Views;
 
 namespace Excersize2.ViewModels
 {
     [Export(typeof(FirstWindowViewModel))]
-    public class FirstWindowViewModel : BaseWindowViewModel, IHandle<Size>
+    public class FirstWindowViewModel : BaseWindowViewModel
     {
-        private double _height;
-        private double _width;
         private SecondWindowViewModel _secondWindow;
 
-        public double Height
+        public override double Height
         {
             get => _height;
             set
             {
                 _height = value;
                 NotifyOfPropertyChange(() => Height);
+
                 if (_secondWindow != null)
                 {
                     NotifyOfPropertyChange(() => _secondWindow.Height);
@@ -29,7 +24,7 @@ namespace Excersize2.ViewModels
             }
         }
 
-        public double Width
+        public override double Width
         {
             get => _width;
             set
@@ -57,17 +52,6 @@ namespace Excersize2.ViewModels
             settings.Width = Width;
             _secondWindow = new SecondWindowViewModel(_windowManager, _eventAggregator, Height, Width);
             _windowManager.ShowDialog(_secondWindow, null, settings);
-        }
-
-        public void WindowSizeChanged(SizeChangedEventArgs args)
-        {
-            _eventAggregator.PublishOnUIThread(args.NewSize);
-        }
-
-        public void Handle(Size newSize)
-        { 
-            Height = newSize.Height;
-            Width = newSize.Width;
         }
     }
 }

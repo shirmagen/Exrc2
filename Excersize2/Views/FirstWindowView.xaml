@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              Background="LightGreen"
-             MinHeight="{Binding Height, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" MinWidth="{Binding Width}" ClipToBounds="True">
+             MinHeight="{Binding Height}" MinWidth="{Binding Width}" ClipToBounds="True">
     <cal:Message.Attach>
         [Event SizeChanged] = [WindowSizeChanged($eventArgs)];
     </cal:Message.Attach>
@@ -17,7 +16,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Label x:Name="Height" HorizontalContentAlignment="Center" FontSize="50" Grid.Row="0"></Label>
+            <Label x:Name="Multiply" HorizontalContentAlignment="Center" FontSize="50" Grid.Row="0"></Label>
             <Button FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Content="פתח חלון חדש"  Grid.Row="1">
                 <cal:Message.Attach>
                     [Event Click] = [OpenSecondWindow];
