@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Label Content="" HorizontalContentAlignment="Center" FontSize="50" Grid.Row="0"></Label>
+            <Label x:Name="Multiply" HorizontalContentAlignment="Center" FontSize="50" Grid.Row="0"></Label>
             <Label FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Content="אהלן"  Grid.Row="1"></Label>
         </Grid>
     </Grid>
