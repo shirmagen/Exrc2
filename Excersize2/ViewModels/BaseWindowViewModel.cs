@@ -12,7 +12,7 @@ namespace Excersize2.ViewModels
         private double _multiply;
 
 
-        public virtual double Height
+        public double Height
         {
             get => _height;
             set
@@ -22,7 +22,7 @@ namespace Excersize2.ViewModels
             }
         }
 
-        public virtual double Width
+        public double Width
         {
             get => _width;
             set

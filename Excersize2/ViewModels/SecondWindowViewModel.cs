@@ -10,7 +10,6 @@ namespace Excersize2.ViewModels
         {
             Height = newHeight;
             Width = newWidth;
-            Multiply = Height * Width;
         }
     }
 }
